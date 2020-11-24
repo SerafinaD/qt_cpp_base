@@ -51,5 +51,7 @@ void MainWindow::on_pushButton_clicked()
         QString* res2 = new(QString);
         *res2 = QString::number(qPow(b,2) / (4 * a)) + " - i * " + QString::number(qSqrt(-discr) / (4 * a));
         ui->line_x2->setText(*res2);
+        delete(res1);
+        delete(res2);
     }
 }
