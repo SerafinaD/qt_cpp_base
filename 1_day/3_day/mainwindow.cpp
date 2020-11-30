@@ -15,7 +15,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pButton_add_clicked()
 {
-    ui->pTextEdit_left->setPlainText(ui->pTextEdit_left->toPlainText() + ui->pTextEdit_right->toPlainText());
+    ui->pTextEdit_left->appendPlainText(ui->pTextEdit_right->toPlainText());
 }
 
 void MainWindow::on_pButton_replace_clicked()

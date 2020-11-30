@@ -16,14 +16,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    qint32 a = ui->line_a->text().toInt();
-    qint32 b = ui->line_b->text().toInt();
-    qint32 c = ui->line_c->text().toInt();
+    double a = ui->line_a->text().toDouble();
+    double b = ui->line_b->text().toDouble();
+    double c = ui->line_c->text().toDouble();
     double x1, x2, discr;
 
-    if (!a)
+    if (a == 0)
     {
-        if (b)
+        if (b != 0)
         {
             x1 = -c / b;
             ui->line_x1->setText(QString::number(x1, 'f'));
