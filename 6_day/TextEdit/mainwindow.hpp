@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QMdiArea>
 #include <QMessageBox>
 #include <QFile>
 #include <QFileDialog>
@@ -39,8 +40,11 @@ private slots:
 
     void on_DarkRB_clicked();
 
+    void on_printButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QMdiArea *mdiArea;
 
     QTranslator translater;
 

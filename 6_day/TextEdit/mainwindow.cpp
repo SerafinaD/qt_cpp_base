@@ -5,6 +5,9 @@
 #include <QKeyEvent>
 #include <QObject>
 #include <QTextStream>
+#include <QPainter>
+#include <QPrinter>
+#include <QPrintDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -141,3 +144,49 @@ void MainWindow::on_DarkRB_clicked()
          qApp->setStyleSheet("QPushButton{background-color: white; color:black} QMainWindow{background-color:grey; color:black} QRadioButton{color:black} QTextEdit{background-color:white; color:black} QCheckBox{color:black}");
 }
 
+
+void MainWindow::on_printButton_clicked()
+{
+    QPrinter printer;
+    QPrintDialog dlg(&printer, this);
+    dlg.setWindowTitle("Print");
+    if (dlg.exec() != QDialog::Accepted)
+        return;
+    QString printStr = ui->textEdit->toPlainText();
+    QChar *list = printStr.data();
+    QStringList strlst;
+    int line = 0, cursor = 0;
+    for (bool getst = true;getst;)
+    {
+        int index = printStr.indexOf("\n", cursor);
+        QString s = "";
+        if (index == -1)
+        {
+           getst = false;
+           s.append(&list[cursor], printStr.length() - cursor);
+        }
+        else s.append(&list[cursor], index - cursor);
+        cursor = index + 1;
+        strlst << s;
+     }
+    QPainter painter;
+    painter.begin(&printer);
+    int h = painter.window().height();
+    int amount = strlst.count();
+    QFont font = painter.font();
+    QFontMetrics fmetrics(font);
+    for (int i = 0; i < amount; i++)
+    {
+        QPointF pf;
+        pf.setX(10);
+        pf.setY(line);
+        painter.drawText(pf, strlst.at(i));
+        line += fmetrics.height();
+        if (h - line <= fmetrics.height())
+        {
+            printer.newPage();
+            line = 0;
+        }
+     }
+     painter.end();
+}
