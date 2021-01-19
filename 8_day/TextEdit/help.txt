@@ -1,0 +1,1 @@
+some info about text edit: "Save" to save file, "Open" to open file, "Help" to help
